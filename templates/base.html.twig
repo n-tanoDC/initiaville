@@ -8,9 +8,22 @@
     {% endblock %}
 </head>
 <body>
-{% block body %}{% endblock %}
-{% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
+{% block body %}
+
+    {% include 'default/_menu.html.twig' %}
+
+    {% block main %}
+        <h1>TEST</h1>
+    {% endblock %}
+
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">InitiaVille</span>
+        </div>
+    </footer>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
 {% endblock %}
 </body>
 </html>
