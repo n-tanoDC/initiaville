@@ -59,7 +59,7 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="project_edit", methods={"GET","POST"})
+     * @Route("/{slug}/edit", name="project_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Project $project): Response
     {
@@ -69,7 +69,7 @@ class ProjectController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('project_index');
+/*            return $this->redirectToRoute('project_index');*/
         }
 
         return $this->render('project/edit.html.twig', [
@@ -79,7 +79,7 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="project_delete", methods={"DELETE"})
+     * @Route("/{slug}", name="project_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Project $project): Response
     {
@@ -89,6 +89,6 @@ class ProjectController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('project_index');
+        /*return $this->redirectToRoute('project_index');*/
     }
 }
