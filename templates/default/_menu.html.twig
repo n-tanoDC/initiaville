@@ -42,7 +42,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         {% if app.user %}
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ path('user_index', {id: app.user.id}) }}">
                                 <i class="fa fa-user"></i> Mon Compte
                             </a>
                             <a class="dropdown-item" href="{{ path('app_logout') }}">

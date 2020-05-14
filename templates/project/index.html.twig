@@ -29,8 +29,8 @@
                 <td>{{ project.description }}</td>
                 <td>{{ project.createdAt ? project.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('project_show', {'id': project.id}) }}">show</a>
-                    <a href="{{ path('project_edit', {'id': project.id}) }}">edit</a>
+                    <a href="{{ path('project_show', {'slug': project.slug}) }}">show</a>
+                    <a href="{{ path('project_edit', {'id': project.slug}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
