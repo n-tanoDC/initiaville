@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}InitiaVille{% endblock %}</title>
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
@@ -12,9 +13,12 @@
 
     {% include 'default/_menu.html.twig' %}
 
-    {% block main %}
-        <h1>TEST</h1>
-    {% endblock %}
+    <main>
+        {% block main %}
+            <h1>TEST</h1>
+        {% endblock %}
+    </main>
+
 
     <footer class="footer">
         <div class="container">
