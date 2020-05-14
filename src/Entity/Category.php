@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -28,6 +29,12 @@ class Category
      * @ORM\ManyToMany(targetEntity=Project::class, mappedBy="categories")
      */
     private $projects;
+
+    /**
+     * @Gedmo\Slug(fields={"label"})
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -82,5 +89,17 @@ class Category
     public function __toString()
     {
         return $this->getLabel();
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 }
