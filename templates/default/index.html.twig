@@ -3,12 +3,10 @@
 {% block title %}InitiaVille{% endblock %}
 
 {% block main %}
-    <main class="main-content container">
-
         <div class="jumbotron">
             <h1 class="display-4">InitiaVille</h1>
             <p class="lead">Proposez des initiatives pour améliorer la vie en ville.</p>
-            <a class="btn btn-primary btn-lg" href="cities.html" role="button">
+            <a class="btn btn-primary btn-lg" href="{{ path('city_index') }}" role="button">
                 <i class="fa fa-map-marker"></i>
                 Voir les villes
             </a>
@@ -29,6 +27,4 @@
                 {% endfor %}
 
         </div>
-
-    </main>
 {% endblock %}

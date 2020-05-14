@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}City{% endblock %}
+
+{% block main %}
+    <h1>Projets de la ville de {{ city.name }}</h1>
+
+    <div class="row row-cols-1 row-cols-md-3">
+        {% for project in city.projects %}
+            <div class="col mb-4">
+                {% include 'project/_card.html.twig' %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

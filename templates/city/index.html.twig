@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}City index{% endblock %}
+
+{% block main %}
+    <h1>Liste des villes participantes</h1>
+
+    <div class="row row-cols-1 row-cols-md-4">
+        {% for city in cities %}
+            <div class="col mb-4">
+                {% include 'city/_card.html.twig' %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
