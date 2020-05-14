@@ -49,7 +49,7 @@ class CityController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="city_show", methods={"GET"})
+     * @Route("/{slug}", name="city_show", methods={"GET"})
      */
     public function show(City $city): Response
     {

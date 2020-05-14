@@ -49,7 +49,7 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="project_show", methods={"GET"})
+     * @Route("/{slug}", name="project_show", methods={"GET"})
      */
     public function show(Project $project): Response
     {
