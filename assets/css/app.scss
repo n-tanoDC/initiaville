@@ -29,3 +29,18 @@ img {
 }
 }
 
+.login-form {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    form {
+        display: inline-block;
+        
+        h1 {
+            text-align: center;
+        }
+    }
+}
+

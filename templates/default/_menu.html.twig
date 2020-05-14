@@ -34,17 +34,34 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-user"></i>
-                        Profil
+                        {% if app.user %}
+                            Bonjour {{ app.user.firstname }} !
+                        {% else %}
+                            Profil
+                        {% endif %}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="profile.html">
-                            <i class="fa fa-user"></i>
-                            Mon Compte
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            <i class="fa fa-sign-out"></i>
-                            Déconnexion
-                        </a>
+                        {% if app.user %}
+                            <a class="dropdown-item" href="#">
+                                <i class="fa fa-user"></i> Mon Compte
+                            </a>
+                            <a class="dropdown-item" href="{{ path('app_logout') }}">
+                                <i class="fa fa-sign-out"></i> Déconnexion
+                            </a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a class="dropdown-item" href="#">
+                                    <i class="fa fa-dashboard"></i>
+                                    Administration
+                                </a>
+                            {% endif %}
+                        {% else %}
+                            <a class="dropdown-item" href="{{ path('app_login') }}">
+                                <i class="fa fa-sign-in"></i> Se connecter
+                            </a>
+                            <a class="dropdown-item" href="{{ path('app_register') }}">
+                                <i class="fa fa-user-plus"></i> Créer un compte
+                            </a>
+                        {% endif %}
                     </div>
                 </li>
             </ul>
