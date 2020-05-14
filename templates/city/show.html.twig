@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}City{% endblock %}
+{% block title %}{{parent() ~ ' - ' ~ city.name}}{% endblock %}
 
 {% block main %}
     <h1>Projets de la ville de {{ city.name }}</h1>
