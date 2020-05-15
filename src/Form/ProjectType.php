@@ -29,7 +29,10 @@ class ProjectType extends AbstractType
             ])
             ->add('picture', FileType::class, [
                 'label' => 'Image',
-                'mapped' => false
+                'mapped' => false,
+                'attr' => [
+                    'placeholder' => 'Veuillez choisir une image...'
+                ]
             ])
             ->add('cost', IntegerType::class, [
                 'label' => 'Coût du projet'
