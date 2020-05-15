@@ -1,13 +1,13 @@
 {% extends 'project/_card.html.twig' %}
 
 {% block buttons %}
-    <a href="{{ path('project_show', {'slug': project.slug}) }}" class="btn btn-primary">
+    <a href="{{ path('project_show', {'slug': project.slug}) }}" class="btn btn-primary btn-action">
         <i class="fa fa-eye"></i>
-        Voir plus
+        <span class="d-none d-md-block">&nbsp;Voir Plus</span>
     </a>
-    <a href="{{ path('project_edit', {'slug': project.slug}) }}" class="btn btn-secondary">
+    <a href="{{ path('project_edit', {'slug': project.slug}) }}" class="btn btn-secondary btn-action">
         <i class="fa fa-pencil"></i>
-        Modifier
+        <span class="d-none d-md-block">&nbsp;Modifier</span>
     </a>
     {% include 'project/_delete_form.html.twig' %}
 {% endblock %}

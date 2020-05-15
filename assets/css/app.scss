@@ -23,10 +23,21 @@ body {
 }
 
 .card {
-img {
-    height: 200px;
-    object-fit: cover;
-}
+    img {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .fa {
+        margin: 0;
+    }
+
+    .btn-action {
+        display: flex;
+        align-items: center;
+        min-height: 35px;
+        min-width: 35px;
+    }
 }
 
 .login-form {
@@ -56,9 +67,5 @@ img {
 .btns {
     display: flex;
     justify-content: space-around;
-
-    .project-card-action {
-        margin: 0 10px;
-    }
 }
 

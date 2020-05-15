@@ -1,8 +1,8 @@
-<form class="project-card-action" method="post" action="{{ path('project_delete', {'id': project.id}) }}" onsubmit="return confirm('Êtes-vous sur de vouloir supprimer ce projet ?');">
+<form method="post" action="{{ path('project_delete', {'id': project.id}) }}" onsubmit="return confirm('Êtes-vous sur de vouloir supprimer ce projet ?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ project.id) }}">
-    <button class="btn btn-danger">
+    <button class="btn btn-danger btn-action">
         <i class="fa fa-trash"></i>
-        <span class="d-none d-md-block">Supprimer</span>
+        <span class="d-none d-md-block">&nbsp;Supprimer</span>
     </button>
 </form>

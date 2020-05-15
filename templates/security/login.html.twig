@@ -4,7 +4,9 @@
 
 {% block body %}
     <div class="container login-form">
-        <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
+        {% if not app.user %}
+            <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
+        {% endif %}
 
         <form method="post" class="align-middle">
             {% if error %}
@@ -13,10 +15,11 @@
 
             {% if app.user %}
                 <div class="mb-3">
-                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Se déconnecter</a><br>
+                    <a href="{{ path('homepage') }}">Page d'accueil</a><br>
+                    <a href="{{ path('user_index') }}">Mon compte</a>
                 </div>
-            {% endif %}
-
+            {% else %}
             <div class="form-group">
                 <label for="inputEmail"><i class="fa fa-user-circle"></i> </label>
                 <input type="email" placeholder="Email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
@@ -44,6 +47,7 @@
             <button class="btn btn-sm btn-primary" type="submit">
                 Se connecter
             </button>
+            {% endif %}
         </form>
     </div>
 {% endblock %}

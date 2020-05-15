@@ -10,10 +10,12 @@
                 <i class="fa fa-map-marker"></i>
                 Voir les villes
             </a>
-            <a class="btn btn-primary btn-lg" href="{{ path('project_new') }}" role="button">
-                <i class="fa fa-plus-circle"></i>
-                Proposer un nouveau projet
-            </a>
+            {% if app.user %}
+                <a class="btn btn-primary btn-lg" href="{{ path('project_new') }}" role="button">
+                    <i class="fa fa-plus-circle"></i>
+                    Proposer un nouveau projet
+                </a>
+            {% endif %}
         </div>
 
         <h2>Les derniers projets</h2>
