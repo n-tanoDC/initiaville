@@ -16,10 +16,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/{id}", name="user_index", methods={"GET","POST"})
+     * @Route("/", name="user_index", methods={"GET","POST"})
      */
-    public function index(Request $request, User $user): Response
+    public function index(Request $request): Response
     {
+        $user = $this->getUser();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
