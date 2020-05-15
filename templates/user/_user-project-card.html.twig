@@ -9,10 +9,7 @@
         <i class="fa fa-pencil"></i>
         Modifier
     </a>
-    <a href="{{ path('project_delete', {'slug': project.slug}) }}" class="btn btn-danger">
-        <i class="fa fa-trash"></i>
-        Supprimer
-    </a>
+    {% include 'project/_delete_form.html.twig' %}
 {% endblock %}
 
 

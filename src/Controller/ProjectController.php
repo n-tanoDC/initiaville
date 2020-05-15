@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Project;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
+use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,18 +29,26 @@ class ProjectController extends AbstractController
     /**
      * @Route("/new", name="project_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, FileUploader $fileUploader): Response
     {
         $project = new Project();
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $pictureFile = $form['picture']->getData();
+
+            if ($pictureFile) {
+                $pictureFileName = $fileUploader->upload($pictureFile);
+                $project->setPicture($pictureFileName);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
+            $project->setUser($this->getUser());
             $entityManager->persist($project);
             $entityManager->flush();
 
-            return $this->redirectToRoute('project_index');
+            return $this->redirectToRoute('user_index');
         }
 
         return $this->render('project/new.html.twig', [
@@ -61,15 +70,25 @@ class ProjectController extends AbstractController
     /**
      * @Route("/{slug}/edit", name="project_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Project $project): Response
+    public function edit(Request $request, Project $project, FileUploader $fileUploader): Response
     {
+        if (!$this->isGranted("ROLE_ADMIN") && $this->getUser() !== $project->getUser()) {
+            throw $this->createAccessDeniedException("Vous n'avez pas le droit de modifier ce projet");
+        }
+
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $pictureFile = $form['picture']->getData();
+
+            if ($pictureFile) {
+                $pictureFileName = $fileUploader->upload($pictureFile);
+                $project->setPicture($pictureFileName);
+            }
             $this->getDoctrine()->getManager()->flush();
 
-/*            return $this->redirectToRoute('project_index');*/
+            return $this->redirectToRoute('user_index');
         }
 
         return $this->render('project/edit.html.twig', [
@@ -79,7 +98,7 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}", name="project_delete", methods={"DELETE"})
+     * @Route("/{id}", name="project_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Project $project): Response
     {
@@ -89,6 +108,6 @@ class ProjectController extends AbstractController
             $entityManager->flush();
         }
 
-        /*return $this->redirectToRoute('project_index');*/
+        return $this->redirectToRoute('user_index');
     }
 }

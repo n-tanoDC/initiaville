@@ -53,3 +53,12 @@ img {
     }
 }
 
+.btns {
+    display: flex;
+    justify-content: space-around;
+
+    .project-card-action {
+        margin: 0 10px;
+    }
+}
+

@@ -3,12 +3,14 @@
     <div class="card-body">
         <h5 class="card-title">{{ project.title }}</h5>
         <p class="card-text">{{ project.excerpt }}</p>
-        {% block buttons %}
-        <a href="{{ path('project_show', {'slug': project.slug}) }}" class="btn btn-primary">
-            <i class="fa fa-eye"></i>
-            Voir plus
-        </a>
-        {% endblock %}
+        <div class="btns">
+            {% block buttons %}
+                <a href="{{ path('project_show', {'slug': project.slug}) }}" class="btn btn-primary">
+                    <i class="fa fa-eye"></i>
+                    Voir plus
+                </a>
+            {% endblock %}
+        </div>
     </div>
     <div class="card-footer">
         {% for category in project.categories %}
