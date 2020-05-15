@@ -32,14 +32,23 @@ img {
 .login-form {
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
     form {
+        margin: 20px 0;
         display: inline-block;
-        
-        h1 {
-            text-align: center;
+        text-align: center;
+        font-size: 25px;
+
+        .form-group {
+            display: flex;
+        }
+
+        label {
+            width: 40px;
+            margin: 0 10px 0 0;
         }
     }
 }
