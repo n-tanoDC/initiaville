@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Project;
+use App\Form\CommentType;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
 use App\Service\FileUploader;
@@ -61,12 +63,28 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}", name="project_show", methods={"GET"})
+     * @Route("/{slug}", name="project_show", methods={"GET","POST"})
      */
-    public function show(Project $project): Response
+    public function show(Project $project, Request $request): Response
     {
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $comment->setUser($this->getUser());
+            $comment->setProject($project);
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('project_show', ['slug' => $project->getSlug()] );
+        }
+
         return $this->render('project/show.html.twig', [
             'project' => $project,
+            'form' => $form->createView(),
+            'comment' => $comment
         ]);
     }
 
@@ -76,7 +94,7 @@ class ProjectController extends AbstractController
      */
     public function edit(Request $request, Project $project, FileUploader $fileUploader): Response
     {
-        if (!$this->isGranted("ROLE_ADMIN") && $this->getUser() !== $project->getUser()) {
+        if (!$this->isGranted('ROLE_USER') && $this->getUser() !== $project->getUser()) {
             throw $this->createAccessDeniedException("Vous n'avez pas le droit de modifier ce projet");
         }
 

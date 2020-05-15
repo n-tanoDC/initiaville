@@ -39,37 +39,22 @@
         <hr>
 
         {% block comment %}
-            <form class="bg-light rounded p-2">
-                <h2>Ajouter un commentaire</h2>
-                <div class="form-group">
-                    <label for="input-title">Titre</label>
-                    <input type="text" class="form-control" id="input-title" placeholder="Titre">
-                </div>
-                <div class="form-group">
-                    <label for="texatrea-comment">Contenu</label>
-                    <textarea class="form-control" id="texatrea-comment" placeholder="Contenu de votre message"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Envoyer</button>
-            </form>
+
+            {% include 'comment/new.html.twig' %}
 
             <section class="list-group mt-4">
-                <article class="list-group-item">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">C'est une super idée !</h5>
-                        <small>Il y a 2 heures</small>
-                    </div>
-                    <p class="mb-1"></p>
-                    <small>J'aimerai vraiment pouvoir participer avec vous à ce projet.</small>
-                </article>
-                <article class="list-group-item">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Avec des ruches !</h5>
-                        <small>Il y a 4 jours</small>
-                    </div>
-                    <p class="mb-1"></p>
-                    <small>On pourrait également installer des ruches sur le toit. Cela permettrait d'améliorer la bio-diversité et contribuerait au bon développement du potager. Il faudrait peut-être d'autres insectes nécessaires permettant de combattre les nuisibles (pucerons, limaces...).</small>
-                </article>
+                {% for comment in project.comments %}
+                    <article class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ comment.title }}</h5>
+                            <small>{{ comment.createdAt|date("d/m/Y") }}</small>
+                        </div>
+                        <p class="mb-1"></p>
+                        <small>{{ comment.content }}</small>
+                    </article>
+                {% endfor %}
             </section>
+
         {% endblock %}
     </main>
 {% endblock %}
