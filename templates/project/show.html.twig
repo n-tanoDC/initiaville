@@ -63,10 +63,9 @@
                                 {% if time >= 1 and time < 24 %}
                                     il y a {{ time|round(0, 'floor') }} heure{% if time >= 2 %}s{% endif %}
                                 {% elseif time >= 24 %}
-                                    {% set time = time/24 %}
-                                    il y a {{ time|round(0, 'floor') }} jour{% if time >= 2 %}s{% endif %}
+                                    il y a {{ (time/24)|round(0, 'floor') }} jour{% if (time/24) >= 2 %}s{% endif %}
                                 {% else %}
-                                    il y a {{ (time*60)|round(0, 'floor') }} minute{% if time >=2 %}s{% endif %}
+                                    il y a {{ (time*60)|round(0, 'floor') }} minute{% if (time*60) >= 2 %}s{% endif %}
                                 {% endif %}
                             </small>
                         </div>
