@@ -40,7 +40,16 @@
 
         {% block comment %}
 
-            {% include 'comment/new.html.twig' %}
+            {% if app.user %}
+                {% include 'comment/new.html.twig' %}
+            {% else %}
+                <section class="text-center">
+                    <h3>Vous devez être connecté(e) pour poster un commentaire !</h3>
+                    <a href="{{ path('app_login') }}" class="btn btn-primary">Se connecter</a>
+                    <a href="{{ path('app_register') }}">Créer un compte</a>
+                </section>
+                <hr>
+            {% endif %}
 
             <section class="list-group mt-4">
                 {% for comment in project.comments %}
