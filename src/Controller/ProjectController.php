@@ -130,6 +130,7 @@ class ProjectController extends AbstractController
         }
 
         if ($this->isCsrfTokenValid('delete'.$project->getId(), $request->request->get('_token'))) {
+            unlink('uploads/projects/' . $project->getPicture());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($project);
             $entityManager->flush();
