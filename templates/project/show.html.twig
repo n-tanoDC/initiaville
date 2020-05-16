@@ -2,6 +2,8 @@
 
 {% block title %}Project{% endblock %}
 
+{% set now = date('now')%}
+
 {% block main %}
     <main class="main-content container">
 
@@ -56,7 +58,17 @@
                     <article class="list-group-item">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">{{ comment.title }}</h5>
-                            <small>{{ comment.createdAt|date("d/m/Y") }}</small>
+                            <small>
+                                {% set time = (now.timestamp - comment.createdAt.timestamp)/3600 %}
+                                {% if time >= 1 and time < 24 %}
+                                    il y a {{ time|round(0, 'floor') }} heure{% if time >= 2 %}s{% endif %}
+                                {% elseif time >= 24 %}
+                                    {% set time = time/24 %}
+                                    il y a {{ time|round(0, 'floor') }} jour{% if time >= 2 %}s{% endif %}
+                                {% else %}
+                                    il y a {{ (time*60)|round(0, 'floor') }} minute{% if time >=2 %}s{% endif %}
+                                {% endif %}
+                            </small>
                         </div>
                         <p class="mb-1"></p>
                         <small>{{ comment.content }}</small>
