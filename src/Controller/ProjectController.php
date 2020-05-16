@@ -94,8 +94,8 @@ class ProjectController extends AbstractController
      */
     public function edit(Request $request, Project $project, FileUploader $fileUploader): Response
     {
-        if (!$this->isGranted('ROLE_USER') && $this->getUser() !== $project->getUser()) {
-            throw $this->createAccessDeniedException("Vous n'avez pas le droit de modifier ce projet");
+        if ($this->getUser() !== $project->getUser()) {
+            throw $this->createAccessDeniedException("Vous n'avez pas le droit d'éditer ce projet");
         }
 
         $form = $this->createForm(ProjectType::class, $project);
@@ -125,6 +125,10 @@ class ProjectController extends AbstractController
      */
     public function delete(Request $request, Project $project): Response
     {
+        if ($this->getUser() !== $project->getUser()) {
+            throw $this->createAccessDeniedException("Vous n'avez pas le droit de supprimer ce projet");
+        }
+
         if ($this->isCsrfTokenValid('delete'.$project->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($project);
