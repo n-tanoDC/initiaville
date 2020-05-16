@@ -1,0 +1,73 @@
+easy_admin:
+  formats:
+    datetime: 'd/m/Y H:i'
+  site_name: 'Administrateur'
+
+  entities:
+    Projets:
+      class: App\Entity\Project
+      image_base_path: '%uploads_url%/projects'
+      list:
+        actions: ['show', 'delete', '-edit', '-new']
+        fields:
+          - 'id'
+          - 'title'
+          - { property: 'city.name', sortable: true }
+          - 'categories'
+          - { property: 'picture', type: 'image' }
+          - 'cost'
+          - 'excerpt'
+          - 'createdAt'
+          - { property: 'user.email', sortable: true }
+      show:
+        actions: ['-edit']
+    Categories:
+      class: App\Entity\Category
+      form:
+        fields:
+          - 'label'
+    Commentaires:
+      class: App\Entity\Comment
+      list:
+        actions: ['-new', '-edit', 'show']
+        fields:
+          - { property: 'project.title', sortable: true }
+          - 'title'
+          - 'content'
+          - 'createdAt'
+          - 'user.email'
+      show:
+        actions: ['-edit']
+        fields:
+          - 'project.title'
+          - 'title'
+          - 'content'
+          - 'createdAt'
+          - 'user.email'
+    Villes:
+      class: App\Entity\City
+      image_base_path: '%uploads_url%/cities'
+      list:
+        fields:
+          - 'id'
+          - 'name'
+          - { property: 'picture', type: 'image' }
+          - 'projects'
+      form:
+        fields:
+          - 'name'
+          - { property: 'picture', type: 'file_upload', type_options: { upload_dir: 'public\uploads\cities', download_path: '%uploads_url%/cities/' }}
+    Utilisateurs:
+      class: App\Entity\User
+      list:
+        actions: ['-new', '-edit', 'show']
+      show:
+        actions: ['-edit']
+        fields:
+          - 'email'
+          - 'firstname'
+          - 'lastname'
+          - { property: 'roles', type: 'simple_array' }
+
+
+

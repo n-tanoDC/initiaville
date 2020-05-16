@@ -70,7 +70,7 @@ class City
 
     public function setPicture(string $picture): self
     {
-        $this->picture = $picture;
+        $this->picture = basename($picture);
 
         return $this;
     }
