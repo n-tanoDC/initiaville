@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\City;
 use App\Form\CityType;
 use App\Repository\CityRepository;
+use App\Service\FileUploader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -64,12 +65,20 @@ class CityController extends AbstractController
      * @Route("/{id}/edit", name="city_edit", methods={"GET","POST"})
      * @IsGranted("ROLE_ADMIN")
      */
-    public function edit(Request $request, City $city): Response
+    public function edit(Request $request, City $city, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(CityType::class, $city);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $pictureFile = $form['picture']->getData();
+
+            if ($pictureFile) {
+                $pictureFileName = $fileUploader->upload($pictureFile);
+                $city->setPicture($pictureFileName);
+            } else {
+                $city->setPicture($city->getPicture());
+            }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('city_index');
@@ -88,6 +97,7 @@ class CityController extends AbstractController
     public function delete(Request $request, City $city): Response
     {
         if ($this->isCsrfTokenValid('delete'.$city->getId(), $request->request->get('_token'))) {
+            unlink('uploads/cities/' . $city->getPicture());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($city);
             $entityManager->flush();
