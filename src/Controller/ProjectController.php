@@ -107,6 +107,8 @@ class ProjectController extends AbstractController
             if ($pictureFile) {
                 $pictureFileName = $fileUploader->upload($pictureFile);
                 $project->setPicture($pictureFileName);
+            } else {
+                $project->setPicture($project->getPicture());
             }
             $this->getDoctrine()->getManager()->flush();
 

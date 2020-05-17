@@ -7,10 +7,8 @@ use App\Entity\City;
 use App\Entity\Project;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,6 +18,16 @@ class ProjectType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $entity = $builder->getData();
+        if (empty($entity->getPicture())) {
+            $required = true;
+            $picPlaceholder = 'Veuillez choisir une image...';
+        } else {
+            $required = false;
+            $picPlaceholder = 'Veuillez choisir une nouvelle image... (facultatif)';
+        }
+
+
         $builder
             ->add('title', TextType::class, [
                 'label' => 'Titre ',
@@ -31,8 +39,9 @@ class ProjectType extends AbstractType
                 'label' => 'Image',
                 'mapped' => false,
                 'attr' => [
-                    'placeholder' => 'Veuillez choisir une image...'
-                ]
+                    'placeholder' => $picPlaceholder
+                ],
+                'required' => $required
             ])
             ->add('cost', IntegerType::class, [
                 'label' => 'Coût du projet'
