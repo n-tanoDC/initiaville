@@ -2,48 +2,56 @@ easy_admin:
   formats:
     datetime: 'd/m/Y H:i'
   site_name: 'Administrateur'
+  list:
+    actions: ['show', 'delete']
+  show:
+    actions: ['-edit']
 
   entities:
     Projets:
       class: App\Entity\Project
       image_base_path: '%uploads_url%/projects'
       list:
-        actions: ['show', 'delete', '-edit', '-new']
+        actions: ['show', '-edit', '-new']
         fields:
           - 'id'
           - 'title'
-          - { property: 'city.name', sortable: true }
+          - 'city'
+          - { property: 'picture', type: 'image' }
+          - 'cost'
+          - 'excerpt'
+          - 'createdAt'
+          - 'user'
+          - 'comments'
+      show:
+        fields:
+          - 'id'
+          - 'title'
+          - 'city'
           - 'categories'
           - { property: 'picture', type: 'image' }
           - 'cost'
           - 'excerpt'
           - 'createdAt'
-          - { property: 'user.email', sortable: true }
-      show:
-        actions: ['-edit']
+          - 'user'
+          - 'comments'
     Categories:
       class: App\Entity\Category
       form:
         fields:
           - 'label'
+      show:
+        actions: ['edit']
     Commentaires:
       class: App\Entity\Comment
       list:
-        actions: ['-new', '-edit', 'show']
+        actions: ['-new', '-edit']
         fields:
-          - { property: 'project.title', sortable: true }
+          - 'project'
           - 'title'
           - 'content'
           - 'createdAt'
-          - 'user.email'
-      show:
-        actions: ['-edit']
-        fields:
-          - 'project.title'
-          - 'title'
-          - 'content'
-          - 'createdAt'
-          - 'user.email'
+          - 'user'
     Villes:
       class: App\Entity\City
       image_base_path: '%uploads_url%/cities'
@@ -57,17 +65,23 @@ easy_admin:
         fields:
           - 'name'
           - { property: 'picture', type: 'file_upload', type_options: { upload_dir: 'public\uploads\cities', download_path: '%uploads_url%/cities/' }}
+      show:
+        actions: ['edit']
+        fields:
+          - 'name'
+          - { property: 'picture', type: 'image' }
+          - 'projects'
     Utilisateurs:
       class: App\Entity\User
       list:
-        actions: ['-new', '-edit', 'show']
+        actions: ['-new', '-edit']
       show:
-        actions: ['-edit']
         fields:
           - 'email'
           - 'firstname'
           - 'lastname'
           - { property: 'roles', type: 'simple_array' }
+          - 'projects'
 
 
 

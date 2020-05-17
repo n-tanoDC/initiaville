@@ -117,4 +117,10 @@ class Comment
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return
+            "De : ". $this->getUser()->getUsername() . " - " . $this->getTitle();
+    }
 }
