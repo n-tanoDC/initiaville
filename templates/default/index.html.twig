@@ -22,7 +22,7 @@
 
         <div class="row row-cols-1 row-cols-md-3">
 
-                {% for project in projects %}
+                {% for project in projects|slice(0, 3) %}
                     <div class="col mb-4">
                         {% include 'project/_card.html.twig' %}
                     </div>
