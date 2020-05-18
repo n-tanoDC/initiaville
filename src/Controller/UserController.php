@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/", name="user_index", methods={"GET","POST"})
+     * @Route("/", name="user_index", methods={"GET","POST","DELETE"})
      */
     public function index(Request $request): Response
     {
@@ -35,9 +35,9 @@ class UserController extends AbstractController
         ]);
     }
 
-    /**
+/*    /**
      * @Route("/new", name="user_new", methods={"GET","POST"})
-     */
+     */ /*
     public function new(Request $request): Response
     {
         $user = new User();
@@ -60,7 +60,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/{id}", name="user_show", methods={"GET"})
-     */
+     */ /*
     public function show(User $user): Response
     {
         return $this->render('user/show.html.twig', [
@@ -70,7 +70,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
-     */
+     */ /*
     public function edit(Request $request, User $user): Response
     {
         $form = $this->createForm(UserType::class, $user);
@@ -78,15 +78,15 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-/*
-            return $this->redirectToRoute('user_index');*/
+
+            return $this->redirectToRoute('user_index');
         }
 
         return $this->render('user/edit.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
         ]);
-    }
+    } */
 
     /**
      * @Route("/{id}", name="user_delete", methods={"DELETE"})
@@ -99,6 +99,8 @@ class UserController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('user_index');
+        $this->get('security.token_storage')->setToken(null);
+        $request->getSession()->invalidate();
+        return $this->redirectToRoute('homepage');
     }
 }
