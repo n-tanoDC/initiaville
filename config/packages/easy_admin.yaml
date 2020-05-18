@@ -64,7 +64,7 @@ easy_admin:
       form:
         fields:
           - 'name'
-          - { property: 'picturePath', label: 'Photo', type: 'file_upload', type_options: { upload_dir: 'public\uploads\cities', upload_delete: "<?php echo '<?php echo 1; ?>'; ?>" }}
+          - { property: 'picturePath', label: 'Photo', type: 'file_upload', type_options: { upload_dir: 'public\uploads\cities' }}
       show:
         actions: ['edit']
         fields:
