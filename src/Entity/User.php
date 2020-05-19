@@ -232,4 +232,9 @@ class User implements UserInterface
     {
         return $this->getEmail();
     }
+
+    public function getFullName(): ?string
+    {
+        return $this->getFirstname() . ' ' . $this->getLastname();
+    }
 }
