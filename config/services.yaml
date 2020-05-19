@@ -6,6 +6,7 @@
 parameters:
     uploads_directory: '%kernel.project_dir%/public/uploads/projects'
     uploads_url: '/uploads'
+    project_url: 'http://127.0.0.1:8000/'
 
 services:
     # default configuration for services in *this* file

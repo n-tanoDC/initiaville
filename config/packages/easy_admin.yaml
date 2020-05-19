@@ -1,4 +1,14 @@
 easy_admin:
+  user:
+    name_property_path: 'fullName'
+  design:
+    menu:
+      - { label: 'Accueil', url: '%project_url%', rel: 'index' }
+      - Projets
+      - Catégories
+      - Villes
+      - Commentaires
+      - Utilisateurs
   formats:
     datetime: 'd/m/Y H:i'
   site_name: 'Administrateur'
@@ -35,7 +45,7 @@ easy_admin:
           - 'createdAt'
           - 'user'
           - 'comments'
-    Categories:
+    Catégories:
       class: App\Entity\Category
       form:
         fields:
@@ -82,6 +92,7 @@ easy_admin:
           - 'lastname'
           - { property: 'roles', type: 'simple_array' }
           - 'projects'
+          - 'comments'
 
 
 
