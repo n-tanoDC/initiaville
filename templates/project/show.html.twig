@@ -43,7 +43,9 @@
         {% block comment %}
 
             {% if app.user %}
-                {% include 'comment/new.html.twig' %}
+                <form class="bg-light rounded p-2" method="post">
+                    {% include 'comment/new.html.twig' %}
+                </form>
             {% else %}
                 <section class="text-center">
                     <h3>Vous devez être connecté(e) pour poster un commentaire !</h3>

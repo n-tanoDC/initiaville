@@ -20,17 +20,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProjectController extends AbstractController
 {
     /**
-     * @Route("/", name="project_index", methods={"GET"})
-     * @IsGranted("ROLE_ADMIN")
-     */
-    public function index(ProjectRepository $projectRepository): Response
-    {
-        return $this->render('project/index.html.twig', [
-            'projects' => $projectRepository->findAll(),
-        ]);
-    }
-
-    /**
      * @Route("/new", name="project_new", methods={"GET","POST"})
      * @IsGranted("ROLE_USER")
      */
