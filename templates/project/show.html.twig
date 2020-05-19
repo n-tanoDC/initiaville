@@ -60,7 +60,7 @@
                     <article class="list-group-item">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">{{ comment.title }}</h5>
-                            <small>
+                            <small class="text-right">
                                 {% set time = (now.timestamp - comment.createdAt.timestamp)/3600 %}
                                 {% if time >= 1 and time < 24 %}
                                     il y a {{ time|round(0, 'floor') }} heure{% if time >= 2 %}s{% endif %}
@@ -68,7 +68,8 @@
                                     il y a {{ (time/24)|round(0, 'floor') }} jour{% if (time/24) >= 2 %}s{% endif %}
                                 {% else %}
                                     il y a {{ (time*60)|round(0, 'floor') }} minute{% if (time*60) >= 2 %}s{% endif %}
-                                {% endif %}
+                                {% endif %}<br>
+                                <strong>{{ comment.user.firstname ~ '.' ~ comment.user.lastname|slice(0, 1)}}</strong>
                             </small>
                         </div>
                         <p class="mb-1"></p>
